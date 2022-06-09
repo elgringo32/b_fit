@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bfit</title>
+</head>
+<body>
+  <h1> 1Bfit is an app that let's you choose from proven exercises and workouts </h1>
+  <form action="/api/addExercise" method="POST">
+    <input type="text" placeholder="name" name="name">
+    <input type="text" placeholder="video url" name="video_url">
+    <label for="motion">Push, Pull or Lateral:</label>
+  <select id="motion" name="motion">
+    <option value="push">Push</option>
+    <option value="pull">Pull</option>
+    <option value="lateral">Laterl</option>
+    </select>
+    <label for="body-group">Body Group</label>
+    <select id="body-group" name="body-group">
+        <option value="abs">Abs</option>
+        <option value="back">Back</option>
+        <option value="biceps">Biceps</option>
+        <option value="triceps">Triceps</option>
+        <option value="calves">Calves</option>
+        <option value="chest">Chest</option>
+        <option value="shoulders">Shoulders</option>
+        <option value="glutes">Glutes</option>
+        <option value="hamstring">Hamstring</option>
+        <option value="quad">Quad</option>
+        <option value="traps">Traps</option>
+        <option value="tibialis">Tibialis</option>
+    </select>
+    <input type="text" placeholder="bodyweight % goal" name="goal">
+    <input type="text" placeholder="min sets" name="min-sets">
+    <input type="text" placeholder="max sets" name="max-sets">
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>
