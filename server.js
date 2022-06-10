@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const MongoClient = require('mongodb').MongoClient
+const ObjectID = require('mongodb').ObjectID
 const cors = require('cors');
-var bodyParser = require('body-parser')
 require('dotenv').config()
 
 
@@ -22,16 +22,30 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-app.get('/',(request, response)=>{
-        response.render('index.ejs')
+app.get('/',(req, res)=>{
+    db.collection('exercises').find().toArray()
+    .then(data => {res.render('index.ejs', { info: data })}
+    )
 })
 
-app.post('/api/addExercise',(request, response)=>{
-    // db.collection('exercises').inse
-    console.log(request.body)
-    response.redirect('/')
-
+app.post('/api/addExercise',(req, res)=>{
+    db.collection('exercises').insertOne(req.body)
+    res.redirect('/')
 })
+
+app.put('/api/updateExercise',(req, res)=>{
+})
+
+app.delete('/api/deleteExercise',(req, res)=>{
+    db.collection('exercises').deleteOne( {_id : ObjectID(req.body._id) })
+    .then(result => {
+        res.json("Exercise Deleted")
+    })
+    .catch(error => console.log(error))
+})
+
+
+
 
 app.listen(3000, function() {
     console.log('listening on 3000')

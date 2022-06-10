@@ -3,9 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <title>Bfit</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1> 1Bfit is an app that let's you choose from proven exercises and workouts </h1>
+  <h1>Bfit is an app that let's you choose from proven exercises and workouts </h1>
+  <h2>All Exercises</h2>
+  <ul>
+    <% for(let i=0; i < info.length; i++) {%>
+        <li data-exercise-id="<%= info[i]._id%>" class="exercises">
+            <span><%=info[i].name %></span>
+            <span class='fa fa-info'></span>
+            <span class='fa fa-trash'></span>
+        </li>
+    <% } %>
+  </ul>
   <form action="/api/addExercise" method="POST">
     <input type="text" placeholder="name" name="name">
     <input type="text" placeholder="video url" name="video_url">
@@ -35,5 +47,7 @@
     <input type="text" placeholder="max sets" name="max-sets">
     <button type="submit">Submit</button>
   </form>
+  <script src='js/main.js'></script>
+
 </body>
 </html>
