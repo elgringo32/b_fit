@@ -9,7 +9,6 @@ require('dotenv').config()
 let db,
     dbConnectionStr = process.env.DB_STRING,
     dbName = 'bfit_workout'
-
 MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
     .then(client => {
         console.log(`Connected to ${dbName} Database`)
@@ -29,12 +28,23 @@ app.get('/',(req, res)=>{
 })
 
 app.post('/api/addExercise',(req, res)=>{
+    req.body.likes = 0
     db.collection('exercises').insertOne(req.body)
     res.redirect('/')
 })
 
 app.put('/api/updateExercise',(req, res)=>{
+    db.collection('exercises').updateOne( {_id : ObjectID(req.body._id) },{
+        $set: {
+            likes: req.body.currentLikes + 1
+        }
+    })
+    .then(result => {
+        res.json("Exercise Updated")
+    })
+    .catch(error => console.log(error))
 })
+
 
 app.delete('/api/deleteExercise',(req, res)=>{
     db.collection('exercises').deleteOne( {_id : ObjectID(req.body._id) })
